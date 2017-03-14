@@ -7,6 +7,7 @@
  */
 package com.divudi.entity;
 
+import com.divudi.data.OccupationType;
 import com.divudi.data.Race;
 import com.divudi.data.Religion;
 import com.divudi.data.Sex;
@@ -113,12 +114,24 @@ public class Person implements Serializable {
     @Transient
     long ageInDays;
     
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     Race race;
     String raceOther;
     @Enumerated(EnumType.STRING)
     Religion religion;
     String religionOther;
+    @Enumerated(EnumType.STRING)
+    OccupationType occupationType;
+
+    public OccupationType getOccupationType() {
+        return occupationType;
+    }
+
+    public void setOccupationType(OccupationType occupationType) {
+        this.occupationType = occupationType;
+    }
+    
+    
 
     public Race getRace() {
         return race;

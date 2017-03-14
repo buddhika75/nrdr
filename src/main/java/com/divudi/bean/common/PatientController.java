@@ -1,22 +1,25 @@
 package com.divudi.bean.common;
 
 import com.divudi.bean.clinical.PatientEncounterController;
+import com.divudi.bean.clinical.PatientItemController;
 import com.divudi.bean.clinical.PracticeBookingController;
+import com.divudi.bean.lab.PatientInvestigationController;
+import com.divudi.data.OccupationType;
 import com.divudi.data.Race;
 import com.divudi.data.Religion;
 import com.divudi.data.Sex;
+import com.divudi.data.SymanticType;
 import com.divudi.data.Title;
-import com.divudi.data.clinical.ItemUsageType;
 import com.divudi.data.dataStructure.YearMonthDay;
 import com.divudi.ejb.BillNumberGenerator;
 import com.divudi.ejb.CommonFunctions;
+import com.divudi.entity.Item;
 import com.divudi.entity.Patient;
 import com.divudi.entity.PatientInstitution;
 import com.divudi.entity.Person;
 import com.divudi.facade.PatientFacade;
 import com.divudi.facade.PatientInstitutionFacade;
 import com.divudi.facade.PersonFacade;
-import com.divudi.facade.util.JsfUtil;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,6 +68,10 @@ public class PatientController implements Serializable {
     CommonFunctions commonFunctions;
     @Inject
     PatientEncounterController PatientEncounterController;
+    @Inject
+    PatientItemController patientItemController;
+    @Inject
+    ItemController itemController;
     /**
      * Controllers
      */
@@ -76,6 +83,7 @@ public class PatientController implements Serializable {
      * Properties
      */
     private Patient current;
+    List<Item> currentDiagnoses;
     private List<Patient> items = null;
 
     private Date dob;
@@ -85,6 +93,7 @@ public class PatientController implements Serializable {
 
     public void patientSelected() {
         getPatientEncounterController().fillCurrentPatientLists(current);
+        getPatientItemController().fillCurrentPatientDiagnoses(current);
     }
 
     public void createPatientBarcode() {
@@ -185,9 +194,13 @@ public class PatientController implements Serializable {
     public Religion[] getReligions() {
         return Religion.values();
     }
+    
+    public OccupationType[] getOccupationTypes() {
+        return OccupationType.values();
+    }
 
     public void prepareAdd() {
-        current = null;
+        setCurrent(null);
         yearMonthDay = null;
         getCurrent();
         getYearMonthDay();
@@ -410,6 +423,7 @@ public class PatientController implements Serializable {
             yearMonthDay.setYear(current.getAgeYears() + "");
 
             getPatientEncounterController().fillCurrentPatientLists(current);
+            getPatientItemController().fillCurrentPatientDiagnoses(current);
             current.setClinicNumber(getClinicNumber(current));
 
         }
@@ -473,6 +487,20 @@ public class PatientController implements Serializable {
         this.barcode = barcode;
     }
 
+    public ItemController getItemController() {
+        return itemController;
+    }
+
+    public List<Item> getCurrentDiagnoses() {
+        return currentDiagnoses;
+    }
+
+    public void setCurrentDiagnoses(List<Item> currentDiagnoses) {
+        this.currentDiagnoses = currentDiagnoses;
+    }
+
+    
+    
     /**
      *
      * Set all Patients to null
@@ -567,6 +595,28 @@ public class PatientController implements Serializable {
         this.PatientEncounterController = PatientEncounterController;
     }
 
+    public PatientItemController getPatientItemController() {
+        return patientItemController;
+    }
+
+    public PatientInstitutionFacade getPatientInstitutionFacade() {
+        return patientInstitutionFacade;
+    }
+
+    public void setPatientInstitutionFacade(PatientInstitutionFacade patientInstitutionFacade) {
+        this.patientInstitutionFacade = patientInstitutionFacade;
+    }
+
+    public List<Patient> getPatientList() {
+        return patientList;
+    }
+
+    public void setPatientList(List<Patient> patientList) {
+        this.patientList = patientList;
+    }
+
+    
+    
     @FacesConverter("patientConverter")
     public static class PatientConverter implements Converter {
 
