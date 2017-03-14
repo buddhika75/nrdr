@@ -84,6 +84,7 @@ public class Patient implements Serializable {
     Date toDate;
     @Size(max = 10)
     String phn;
+
     @ManyToOne
     Area district;
     @ManyToOne
@@ -91,7 +92,7 @@ public class Patient implements Serializable {
     @ManyToOne
     Area gramaNiladhariArea;
     Long indexNo;
-    
+
     @ManyToOne
     Item occupation;
     @ManyToOne
@@ -106,6 +107,30 @@ public class Patient implements Serializable {
     @Lob
     String treatments;
 
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date dateAtRegistration;
+    int ageAtRegistration;
+
+    public Date getDateAtRegistration() {
+        return dateAtRegistration;
+    }
+
+    public void setDateAtRegistration(Date dateAtRegistration) {
+        this.dateAtRegistration = dateAtRegistration;
+    }
+
+    public int getAgeAtRegistration() {
+        return ageAtRegistration;
+    }
+
+    public void setAgeAtRegistration(int ageAtRegistration) {
+        this.ageAtRegistration = ageAtRegistration;
+    }
+
+    
+    
+    
+    
     public String getCareGiverDetails() {
         return careGiverDetails;
     }
@@ -129,9 +154,7 @@ public class Patient implements Serializable {
     public void setTreatments(String treatments) {
         this.treatments = treatments;
     }
-    
-    
-    
+
     public Item getFunds() {
         return funds;
     }
@@ -139,8 +162,6 @@ public class Patient implements Serializable {
     public void setFunds(Item funds) {
         this.funds = funds;
     }
-    
-    
 
     public Item getOccupation() {
         return occupation;
@@ -157,8 +178,6 @@ public class Patient implements Serializable {
     public void setEducationLevel(Item educationLevel) {
         this.educationLevel = educationLevel;
     }
-    
-    
 
     public Long getIndexNo() {
         return indexNo;
@@ -167,8 +186,6 @@ public class Patient implements Serializable {
     public void setIndexNo(Long indexNo) {
         this.indexNo = indexNo;
     }
-    
-    
 
     public Area getDistrict() {
         return district;
@@ -193,9 +210,6 @@ public class Patient implements Serializable {
     public void setGramaNiladhariArea(Area gramaNiladhariArea) {
         this.gramaNiladhariArea = gramaNiladhariArea;
     }
-    
-    
-    
 
     public String getClinicNumber() {
         return clinicNumber;
@@ -204,8 +218,6 @@ public class Patient implements Serializable {
     public void setClinicNumber(String clinicNumber) {
         this.clinicNumber = clinicNumber;
     }
-    
-    
 
     public String getPhn() {
         return phn;
@@ -214,7 +226,6 @@ public class Patient implements Serializable {
     public void setPhn(String phn) {
         this.phn = phn;
     }
-    
 
     public Date getFromDate() {
         return fromDate;

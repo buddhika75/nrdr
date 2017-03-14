@@ -155,7 +155,7 @@ public class WebUserController implements Serializable {
         removingUser.setRetired(true);
         removingUser.setRetirer(getSessionController().getLoggedUser());
         removingUser.setRetiredAt(Calendar.getInstance().getTime());
-        //getFacade().edit(removingUser);
+
         getFacade().edit(removingUser);
         UtilityController.addErrorMessage("User Removed");
     }

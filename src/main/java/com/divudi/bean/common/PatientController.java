@@ -2,6 +2,8 @@ package com.divudi.bean.common;
 
 import com.divudi.bean.clinical.PatientEncounterController;
 import com.divudi.bean.clinical.PracticeBookingController;
+import com.divudi.data.Race;
+import com.divudi.data.Religion;
 import com.divudi.data.Sex;
 import com.divudi.data.Title;
 import com.divudi.data.clinical.ItemUsageType;
@@ -176,6 +178,14 @@ public class PatientController implements Serializable {
         return Sex.values();
     }
 
+    public Race[] getRaces() {
+        return Race.values();
+    }
+
+    public Religion[] getReligions() {
+        return Religion.values();
+    }
+
     public void prepareAdd() {
         current = null;
         yearMonthDay = null;
@@ -271,7 +281,7 @@ public class PatientController implements Serializable {
     }
 
     public void saveSelected() {
-        System.out.println("saving using edit and commit  " );
+        System.out.println("saving using edit and commit  ");
         if (getCurrent() == null) {
             UtilityController.addErrorMessage("No Current. Error. NOT SAVED");
             return;

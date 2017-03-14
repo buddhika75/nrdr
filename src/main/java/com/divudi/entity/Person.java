@@ -7,6 +7,8 @@
  */
 package com.divudi.entity;
 
+import com.divudi.data.Race;
+import com.divudi.data.Religion;
 import com.divudi.data.Sex;
 import com.divudi.data.Title;
 import com.divudi.entity.clinical.ClinicalFindingValue;
@@ -110,6 +112,48 @@ public class Person implements Serializable {
     String age;
     @Transient
     long ageInDays;
+    
+    @Enumerated(EnumType.ORDINAL)
+    Race race;
+    String raceOther;
+    @Enumerated(EnumType.STRING)
+    Religion religion;
+    String religionOther;
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
+    }
+
+    public String getRaceOther() {
+        return raceOther;
+    }
+
+    public void setRaceOther(String raceOther) {
+        this.raceOther = raceOther;
+    }
+
+    public Religion getReligion() {
+        return religion;
+    }
+
+    public void setReligion(Religion religion) {
+        this.religion = religion;
+    }
+
+    public String getReligionOther() {
+        return religionOther;
+    }
+
+    public void setReligionOther(String religionOther) {
+        this.religionOther = religionOther;
+    }
+    
+    
+    
 
     public boolean isForeigner() {
         return foreigner;

@@ -11,7 +11,6 @@ package com.divudi.bean.common;
 import com.divudi.entity.Category;
 import com.divudi.entity.Item;
 import com.divudi.entity.Nationality;
-import com.divudi.entity.Religion;
 import com.divudi.entity.ServiceCategory;
 import com.divudi.entity.ServiceSubCategory;
 import com.divudi.entity.inward.TimedItemCategory;
@@ -442,7 +441,7 @@ public class CategoryController implements Serializable {
     public List<Category> getItems() {
         if (items == null) {
             String j;
-            j="select c "
+            j = "select c "
                     + " from Category c "
                     + " where c.retired=false "
                     + " order by c.name";
@@ -472,21 +471,6 @@ public class CategoryController implements Serializable {
         return religions;
     }
 
-    public void addReligion() {
-        if (selectText == null || selectText.trim().equals("")) {
-            JsfUtil.addErrorMessage("Enter a name");
-            return;
-        }
-        Religion r = new Religion();
-        r.setName(selectText);
-        r.setCreatedAt(new Date());
-        r.setCreater(getSessionController().getLoggedUser());
-        getFacade().create(r);
-        religions = null;
-        selectText = "";
-        getReligions();
-    }
-
     public void addNationality() {
         if (selectText == null || selectText.trim().equals("")) {
             JsfUtil.addErrorMessage("Enter a name");
@@ -508,16 +492,7 @@ public class CategoryController implements Serializable {
             return;
         }
         getFacade().edit(cat);
-        if (cat instanceof Religion) {
-            religions = null;
-            getReligions();
-        } else if (cat instanceof Nationality) {
-            nationalities = null;
-            getNationalities();
-        } else {
-            items = null;
-            getItems();
-        }
+        getItems();
     }
 
     /**

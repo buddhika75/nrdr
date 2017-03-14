@@ -107,8 +107,25 @@
 
                                 <h:panelGrid id="patientDetail" columns="2" >
                                     <h:panelGrid columns="2" >
-                                        <h:outputLabel value="Title &amp; Full Name"/>
-                                        <h:panelGrid columns="2" rendered="#{patientController.current.person ne null}">
+                                        <h:outputLabel value="ID"/>
+                                        <p:inputText value="#{patientController.current.hinNo}" rendered="#{patientController.current.person ne null}"></p:inputText>
+                                        <h:outputLabel value="Centre"/>
+                                        <p:autoComplete completeMethod="#{institutionController.completeIns}" 
+                                                        value="#{patientController.current.person.institution}" 
+                                                        var="ins" itemValue="#{ins}" itemLabel="#{ins.name}"
+                                                        rendered="#{patientController.current.person ne null}">
+                                            <p:column >
+                                                <p:outputLabel value="#{ins.name}" ></p:outputLabel>
+                                            </p:column>
+                                            <p:column >
+                                                <p:outputLabel value="#{ins.institutionCode}" ></p:outputLabel>
+                                            </p:column>
+                                        </p:autoComplete>
+                                        <h:outputLabel value="Clinic No"/>
+                                        <p:inputText value="#{patientController.current.clinicNumber}" rendered="#{patientController.current.person ne null}"></p:inputText>
+
+                                        <h:outputLabel value="Name"/>
+                                        <h:panelGrid columns="2" rendered="false">
                                             <p:selectOneMenu  rendered="#{patientController.current.person ne null}" id="cmbTitle" value="#{patientController.current.person.title}"  >
                                                 <f:selectItems value="#{patientController.titles}" var="t" itemLabel="#{t.label}" itemValue="#{t}"/>
                                             </p:selectOneMenu>
@@ -116,6 +133,30 @@
                                             </p:inputText>
                                         </h:panelGrid>
                                         <h:panelGroup rendered="#{patientController.current.person eq null}"></h:panelGroup>
+
+                                        <h:outputLabel value="Sex"/>
+                                        <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
+                                        <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtNewSex"  value="#{patientController.current.person.sex}" style="width: 200px;">
+                                            <f:selectItem itemLabel="Select Sex"/>
+                                            <f:selectItems value="#{patientController.sexs}"/>
+                                        </p:selectOneMenu>
+
+                                        <h:outputLabel value="Race"/>
+                                        <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
+                                        <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtNewSex"  
+                                                         value="#{patientController.current.person.race}" style="width: 200px;">
+                                            <f:selectItem itemLabel="Select Race"/>
+                                            <f:selectItems value="#{patientController.races}"/>
+                                        </p:selectOneMenu>
+
+                                        <h:outputLabel value="Religion"/>
+                                        <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
+                                        <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtNewSex"  
+                                                         value="#{patientController.current.person.religion}" style="width: 200px;">
+                                            <f:selectItem itemLabel="Select Religion"/>
+                                            <f:selectItems value="#{patientController.religions}"/>
+                                        </p:selectOneMenu>
+
 
                                         <h:outputLabel value="Address"/>
                                         <p:inputTextarea id="txtNewPtAddress" value="#{patientController.current.person.address}" style="width: 400px;">
@@ -153,12 +194,7 @@
                                                          itemLabel="#{g.name}" itemValue="#{g}">
                                         </p:autoComplete>
 
-                                        <h:outputLabel value="Sex"/>
-                                        <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
-                                        <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtNewSex"  value="#{patientController.current.person.sex}" style="width: 200px;">
-                                            <f:selectItem itemLabel="Select Sex"/>
-                                            <f:selectItems value="#{patientController.sexs}"/>
-                                        </p:selectOneMenu>
+
 
                                         <h:outputLabel value="Age"/>
                                         <h:panelGrid columns="3">
