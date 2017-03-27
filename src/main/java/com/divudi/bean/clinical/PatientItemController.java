@@ -124,10 +124,10 @@ public class PatientItemController implements Serializable {
         Map m = new HashMap();
         j="select pi from PatientItem pi "
                 + " where pi.patient=:p "
-                + " and pi.item.item.symanticType=:st "
+                + " and pi.item.symanticType=:st "
                 + " and pi.retired=:r";
         m.put("p", currentPatient);
-        m.put("st", SymanticType.Diagnosis);
+        m.put("st", SymanticType.Disease_or_Syndrome);
         m.put("r", false);
         currentItems = getEjbFacade().findBySQL(j, m);
     }

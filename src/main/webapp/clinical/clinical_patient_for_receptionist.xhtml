@@ -104,134 +104,205 @@
                                 </f:facet>
 
 
+                                <p:tabView  activeIndex="2">
+                                    <p:tab title="Patient Details" >
+                                        <h:panelGrid id="patientDetail" columns="2" >
+                                            <h:panelGrid columns="2" >
+                                                <h:outputLabel value="ID"/>
+                                                <p:inputText value="#{patientController.current.hinNo}" rendered="#{patientController.current.person ne null}"></p:inputText>
+                                                <h:outputLabel value="Centre"/>
+                                                <p:autoComplete completeMethod="#{institutionController.completeIns}" 
+                                                                value="#{patientController.current.person.institution}" 
+                                                                var="ins" itemValue="#{ins}" itemLabel="#{ins.name}"
+                                                                rendered="#{patientController.current.person ne null}">
+                                                    <p:column >
+                                                        <p:outputLabel value="#{ins.name}" ></p:outputLabel>
+                                                    </p:column>
+                                                    <p:column >
+                                                        <p:outputLabel value="#{ins.institutionCode}" ></p:outputLabel>
+                                                    </p:column>
+                                                </p:autoComplete>
+                                                <h:outputLabel value="Clinic No"/>
+                                                <p:inputText value="#{patientController.current.clinicNumber}" rendered="#{patientController.current.person ne null}"></p:inputText>
 
-                                <h:panelGrid id="patientDetail" columns="2" >
-                                    <h:panelGrid columns="2" >
-                                        <h:outputLabel value="ID"/>
-                                        <p:inputText value="#{patientController.current.hinNo}" rendered="#{patientController.current.person ne null}"></p:inputText>
-                                        <h:outputLabel value="Centre"/>
-                                        <p:autoComplete completeMethod="#{institutionController.completeIns}" 
-                                                        value="#{patientController.current.person.institution}" 
-                                                        var="ins" itemValue="#{ins}" itemLabel="#{ins.name}"
-                                                        rendered="#{patientController.current.person ne null}">
-                                            <p:column >
-                                                <p:outputLabel value="#{ins.name}" ></p:outputLabel>
-                                            </p:column>
-                                            <p:column >
-                                                <p:outputLabel value="#{ins.institutionCode}" ></p:outputLabel>
-                                            </p:column>
-                                        </p:autoComplete>
-                                        <h:outputLabel value="Clinic No"/>
-                                        <p:inputText value="#{patientController.current.clinicNumber}" rendered="#{patientController.current.person ne null}"></p:inputText>
+                                                <h:outputLabel value="Name"/>
+                                                <h:panelGrid columns="2" rendered="#{patientController.current.person ne null}">
+                                                    <p:selectOneMenu  rendered="#{patientController.current.person ne null}" id="cmbTitle" value="#{patientController.current.person.title}"  >
+                                                        <f:selectItems value="#{patientController.titles}" var="t" itemLabel="#{t.label}" itemValue="#{t}"/>
+                                                    </p:selectOneMenu>
+                                                    <p:inputText autocomplete="off"  id="txtNewPtName" value="#{patientController.current.person.name}" style="width: 350px;">
+                                                    </p:inputText>
+                                                </h:panelGrid>
+                                                <h:panelGroup rendered="#{patientController.current.person eq null}"></h:panelGroup>
 
-                                        <h:outputLabel value="Name"/>
-                                        <h:panelGrid columns="2" rendered="false">
-                                            <p:selectOneMenu  rendered="#{patientController.current.person ne null}" id="cmbTitle" value="#{patientController.current.person.title}"  >
-                                                <f:selectItems value="#{patientController.titles}" var="t" itemLabel="#{t.label}" itemValue="#{t}"/>
-                                            </p:selectOneMenu>
-                                            <p:inputText autocomplete="off"  id="txtNewPtName" value="#{patientController.current.person.name}" style="width: 350px;">
-                                            </p:inputText>
+
+                                                <h:outputLabel value="NIC"/>
+                                                <p:inputText  value="#{patientController.current.person.nic}" />
+
+                                                <h:outputLabel value="Age"/>
+                                                <h:panelGrid columns="3">
+                                                    <p:inputText autocomplete="off"  id="year" style="width: 80px;" value="#{patientController.yearMonthDay.year}">
+                                                        <f:ajax event="keyup" execute="@this" render="calNewPtDob lblPtAge" listener="#{patientController.dateChangeListen()}"  />
+                                                    </p:inputText>
+
+                                                    <p:inputText autocomplete="off" id="month"   style="width: 80px;" value="#{patientController.yearMonthDay.month}">
+                                                        <f:ajax event="keyup" execute="@this" render="calNewPtDob lblPtAge" listener="#{patientController.dateChangeListen()}"  />
+                                                    </p:inputText>
+
+                                                    <p:inputText autocomplete="off" id="day"  style="width: 80px;"  value="#{patientController.yearMonthDay.day}">
+                                                        <f:ajax event="keyup" execute="@this" render="calNewPtDob lblPtAge" listener="#{patientController.dateChangeListen()}" />
+                                                    </p:inputText>
+
+                                                    <p:watermark value="#{patientController.current.ageYears} years" for="year" ></p:watermark>
+                                                    <p:watermark value="#{patientController.current.ageMonths} months" for="month" ></p:watermark>
+                                                    <p:watermark value="#{patientController.current.ageDays} days" for="day" ></p:watermark>
+
+                                                </h:panelGrid>
+
+
+                                                <h:outputLabel value="Date of Birth"/>
+                                                <h:panelGroup >
+                                                    <p:calendar  value="#{patientController.current.person.dob}" id="calNewPtDob"  navigator="true" pattern="dd/MM/yyyy" >
+                                                        <f:ajax event="dateSelect" execute="calNewPtDob" render="lblPtAge"/>
+                                                    </p:calendar>
+                                                    <h:outputLabel id="lblPtAge" value="#{patientController.current.age}"/>
+                                                </h:panelGroup>
+
+
+                                                <h:outputLabel value="Sex"/>
+                                                <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
+                                                <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtNewSex"  value="#{patientController.current.person.sex}" style="width: 200px;">
+                                                    <f:selectItem itemLabel="Select Sex"/>
+                                                    <f:selectItems value="#{patientController.sexs}"/>
+                                                </p:selectOneMenu>
+
+                                                <h:outputLabel value="Race"/>
+                                                <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
+                                                <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtRace"  
+                                                                 value="#{patientController.current.person.race}" style="width: 200px;">
+                                                    <f:selectItem itemLabel="Select Race"/>
+                                                    <f:selectItems value="#{patientController.races}"/>
+                                                </p:selectOneMenu>
+
+                                                <h:outputLabel value="Religion"/>
+                                                <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
+                                                <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtReligion"  
+                                                                 value="#{patientController.current.person.religion}" style="width: 200px;">
+                                                    <f:selectItem itemLabel="Select Religion"/>
+                                                    <f:selectItems value="#{patientController.religions}"/>
+                                                </p:selectOneMenu>
+
+                                                <h:outputLabel value="Occupation Type"/>
+                                                <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
+                                                <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtOccu"  
+                                                                 value="#{patientController.current.person.occupationType}" style="width: 200px;">
+                                                    <f:selectItem itemLabel="Select Occupation Type"/>
+                                                    <f:selectItems value="#{patientController.occupationTypes}"/>
+                                                </p:selectOneMenu>
+
+
+                                                <h:outputLabel value="Occupation"/>
+                                                <p:autoComplete  rendered="#{patientController.current.person ne null}"
+                                                                 value="#{patientController.current.occupation}" 
+                                                                 completeMethod="#{itemController.completeOccupations}" var="o" 
+                                                                 itemLabel="#{o.name}" itemValue="#{o}">
+                                                </p:autoComplete>
+
+                                                <h:outputLabel value="Phone"/>
+                                                <p:inputText id="txtNewPtPhone" autocomplete="off" maxlength="11" value="#{patientController.current.person.phone}">
+                                                </p:inputText>
+
+                                                <h:outputLabel value="Address"/>
+                                                <p:inputTextarea id="txtNewPtAddress" value="#{patientController.current.person.address}" style="width: 400px;">
+                                                </p:inputTextarea>
+
+                                                <h:outputLabel value="City"/>
+                                                <p:autoComplete rendered="#{patientController.current.person ne null}"
+                                                                value="#{patientController.current.district}"
+                                                                completeMethod="#{areaController.completeDistricts}" var="d" 
+                                                                itemLabel="#{d.name}" itemValue="#{d}"
+                                                                >
+                                                </p:autoComplete>
+
+
+
+
+
+
+
+                                            </h:panelGrid>
+
                                         </h:panelGrid>
-                                        <h:panelGroup rendered="#{patientController.current.person eq null}"></h:panelGroup>
-
-
-                                        <h:outputLabel value="NIC"/>
-                                        <p:inputText  value="#{patientController.current.person.nic}" />
-
-                                        <h:outputLabel value="Age"/>
-                                        <h:panelGrid columns="3">
-                                            <p:inputText autocomplete="off"  id="year" style="width: 80px;" value="#{patientController.yearMonthDay.year}">
-                                                <f:ajax event="keyup" execute="@this" render="calNewPtDob lblPtAge" listener="#{patientController.dateChangeListen()}"  />
-                                            </p:inputText>
-
-                                            <p:inputText autocomplete="off" id="month"   style="width: 80px;" value="#{patientController.yearMonthDay.month}">
-                                                <f:ajax event="keyup" execute="@this" render="calNewPtDob lblPtAge" listener="#{patientController.dateChangeListen()}"  />
-                                            </p:inputText>
-
-                                            <p:inputText autocomplete="off" id="day"  style="width: 80px;"  value="#{patientController.yearMonthDay.day}">
-                                                <f:ajax event="keyup" execute="@this" render="calNewPtDob lblPtAge" listener="#{patientController.dateChangeListen()}" />
-                                            </p:inputText>
-
-                                            <p:watermark value="#{patientController.current.ageYears} years" for="year" ></p:watermark>
-                                            <p:watermark value="#{patientController.current.ageMonths} months" for="month" ></p:watermark>
-                                            <p:watermark value="#{patientController.current.ageDays} days" for="day" ></p:watermark>
-
-                                        </h:panelGrid>
-
-
-                                        <h:outputLabel value="Date of Birth"/>
-                                        <h:panelGroup >
-                                            <p:calendar  value="#{patientController.current.person.dob}" id="calNewPtDob"  navigator="true" pattern="dd/MM/yyyy" >
-                                                <f:ajax event="dateSelect" execute="calNewPtDob" render="lblPtAge"/>
-                                            </p:calendar>
-                                            <h:outputLabel id="lblPtAge" value="#{patientController.current.age}"/>
+                                    </p:tab>
+                                    <p:tab title="Disease Details" >
+                                        <h:panelGroup rendered="#{patientController.current.id ne null }" >
+                                            <p:autoComplete id="dx" completeMethod="#{itemController.completeDiagnoses}" var="i"
+                                                            value="#{patientItemController.currentItem}"
+                                                            itemLabel="#{i.name}"
+                                                            itemValue="#{i}"
+                                                            forceSelection="true">
+                                            </p:autoComplete>
+                                            <p:commandButton id="btnDxAdd" process="dx btnDxAdd" update="tblDx" value="Add" action="#{patientItemController.addPatientDiagnosis()}" >
+                                            </p:commandButton>
+                                            <p:dataTable id="tblDx" value="#{patientItemController.currentItems}" var="dxs" >
+                                                <p:column >
+                                                    <p:outputLabel value="#{dxs.item.name}" ></p:outputLabel>
+                                                </p:column>
+                                                <p:column >
+                                                    <p:commandButton value="Remove" process="@this" update="@this" action="#{patientItemController.removePatientDiagnosis()}" >
+                                                        <f:setPropertyActionListener value="#{dxs}" target="#{patientItemController.current}" ></f:setPropertyActionListener>
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>
                                         </h:panelGroup>
 
+                                    </p:tab>
+                                    <p:tab title="Disease Details"  >
+                                        <table >
+                                            <tr>
+                                                <td>
+                                                    <div style="width: 100%; height: 100%;  " >
+                                                        <!--304-->
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 92.3px; left: 148px; opacity: 0.8; " ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 92.3px; left: 183px; opacity: 0.8;" ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 133px; left: 176px; opacity: 0.8;" ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 133px; left: 156px; opacity: 0.8;" ></p:selectBooleanCheckbox>
 
-                                        <h:outputLabel value="Sex"/>
-                                        <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
-                                        <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtNewSex"  value="#{patientController.current.person.sex}" style="width: 200px;">
-                                            <f:selectItem itemLabel="Select Sex"/>
-                                            <f:selectItems value="#{patientController.sexs}"/>
-                                        </p:selectOneMenu>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 127px; left: 132.6px; opacity: 0.8;" ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 127px; left: 200.6px; opacity: 0.8;" ></p:selectBooleanCheckbox>
 
-                                        <h:outputLabel value="Race"/>
-                                        <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
-                                        <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtNewSex"  
-                                                         value="#{patientController.current.person.race}" style="width: 200px;">
-                                            <f:selectItem itemLabel="Select Race"/>
-                                            <f:selectItems value="#{patientController.races}"/>
-                                        </p:selectOneMenu>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 143px; left: 118px; opacity: 0.8;" ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 143px; left: 215px; opacity: 0.8;" ></p:selectBooleanCheckbox>
 
-                                        <h:outputLabel value="Religion"/>
-                                        <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
-                                        <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtNewSex"  
-                                                         value="#{patientController.current.person.religion}" style="width: 200px;">
-                                            <f:selectItem itemLabel="Select Religion"/>
-                                            <f:selectItems value="#{patientController.religions}"/>
-                                        </p:selectOneMenu>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 203px; left: 107px; opacity: 0.8;" ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 203px; left: 227px; opacity: 0.8;" ></p:selectBooleanCheckbox>
 
-                                        <h:outputLabel value="Occupation Type"/>
-                                        <h:outputLabel rendered="#{patientController.current.person eq null}" value=""/>
-                                        <p:selectOneMenu rendered="#{patientController.current.person ne null}" id="txtNewSex"  
-                                                         value="#{patientController.current.person.occupationType}" style="width: 200px;">
-                                            <f:selectItem itemLabel="Select Occupation Type"/>
-                                            <f:selectItems value="#{patientController.occupationTypes}"/>
-                                        </p:selectOneMenu>
-                                        
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 253px; left: 107px; opacity: 0.8;" ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 263px; left: 227px; opacity: 0.8;" ></p:selectBooleanCheckbox>
 
-                                        <h:outputLabel value="Occupation"/>
-                                        <p:autoComplete  rendered="#{patientController.current.person ne null}"
-                                                         value="#{patientController.current.occupation}" 
-                                                         completeMethod="#{itemController.completeOccupations}" var="o" 
-                                                         itemLabel="#{o.name}" itemValue="#{o}">
-                                        </p:autoComplete>
-
-                                        <h:outputLabel value="Phone"/>
-                                        <p:inputText id="txtNewPtPhone" autocomplete="off" maxlength="11" value="#{patientController.current.person.phone}">
-                                        </p:inputText>
-
-                                        <h:outputLabel value="Address"/>
-                                        <p:inputTextarea id="txtNewPtAddress" value="#{patientController.current.person.address}" style="width: 400px;">
-                                        </p:inputTextarea>
-
-                                        <h:outputLabel value="City"/>
-                                        <p:autoComplete rendered="#{patientController.current.person ne null}"
-                                                        value="#{patientController.current.district}"
-                                                        completeMethod="#{areaController.completeDistricts}" var="d" 
-                                                        itemLabel="#{d.name}" itemValue="#{d}"
-                                                        >
-                                        </p:autoComplete>
+                                                        
+                                                        <img src="../resources/images/ra1.png" alt=""/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div style="width: 100%; height: 100%; " >
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 92.3px; left: 452px; opacity: 0.8; " ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 92.3px; left: 487px; opacity: 0.8;" ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 133px; left: 480px; opacity: 0.8;" ></p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox style="position: absolute; top: 133px; left: 460px; opacity: 0.8;" ></p:selectBooleanCheckbox>
+                                                        <img src="../resources/images/ra1.png" alt=""/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
 
 
 
+                                    </p:tab>
+
+                                </p:tabView>
 
 
-
-
-                                    </h:panelGrid>
-
-                                </h:panelGrid>
 
 
 

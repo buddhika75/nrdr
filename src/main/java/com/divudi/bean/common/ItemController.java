@@ -289,6 +289,26 @@ public class ItemController implements Serializable {
         return lst;
     }
 
+    public List<Item> completeItem(String query, SymanticType st) {
+        String sql;
+        List<Item> lst;
+        HashMap tmpMap = new HashMap();
+        if (query == null) {
+            lst = new ArrayList<>();
+        } else {
+            sql = "select c "
+                    + " from Item c "
+                    + " where c.retired=false "
+                    + " and c.symanticType=:st ";
+            tmpMap.put("st", st);
+            sql += " and (upper(c.name) like :q or upper(c.code) like :q) ";
+            tmpMap.put("q", "%" + query.toUpperCase() + "%");
+            sql += " order by c.name";
+            lst = getFacade().findBySQL(sql, tmpMap, TemporalType.TIMESTAMP);
+        }
+        return lst;
+    }
+
     public List<Item> completeItem(String query) {
         return completeItem(query, null, null, 20);
 //        List<Item> suggestions;
@@ -348,26 +368,10 @@ public class ItemController implements Serializable {
         DepartmentType[] dts = new DepartmentType[]{DepartmentType.Pharmacy, null};
         Class[] classes = new Class[]{Amp.class};
         return completeItem(query, classes, dts, 30);
-//        
-//        String sql;
-//        HashMap tmpMap = new HashMap();
-//        if (query == null) {
-//            suggestions = new ArrayList<>();
-//        } else {
-//
-//            sql = "select c from Item c where c.retired=false "
-//                    + " and (type(c)= :amp) and "
-//                    + " ( c.departmentType is null or c.departmentType!=:dep ) "
-//                    + " and (upper(c.name) like :str or upper(c.code) like :str or"
-//                    + " upper(c.barcode) like :str ) order by c.name";
-//            ////System.out.println(sql);
-//            tmpMap.put("dep", DepartmentType.Store);
-//            tmpMap.put("amp", Amp.class);
-//            tmpMap.put("str", "%" + query.toUpperCase() + "%");
-//            suggestions = getFacade().findBySQL(sql, tmpMap, TemporalType.TIMESTAMP, 30);
-//        }
-//        return suggestions;
+    }
 
+    public List<Item> completeDiagnoses(String query) {
+        return completeItem(query, SymanticType.Disease_or_Syndrome);
     }
 
     public List<Item> completeAmpItemAll(String query) {
@@ -537,20 +541,18 @@ public class ItemController implements Serializable {
         return suggestions;
     }
 
-    
-    public List<Item> completeOccupations(String qry){
+    public List<Item> completeOccupations(String qry) {
         return completeSymanticType(qry, SymanticType.Occupation_or_Discipline);
     }
-    
-    public List<Item> completeEducationLevel(String qry){
+
+    public List<Item> completeEducationLevel(String qry) {
         return completeSymanticType(qry, SymanticType.Occupation_or_Discipline);
     }
-    
-    public List<Item> completeFunds(String qry){
+
+    public List<Item> completeFunds(String qry) {
         return completeSymanticType(qry, SymanticType.Self_help_or_Relief_Organization);
     }
-    
-    
+
     public List<Item> completeAmpAndAmppItem(String query) {
         List<Item> suggestions;
         String sql;

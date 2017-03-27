@@ -88,7 +88,6 @@ public enum SymanticType {
     Sign_or_Symptom,
     Sign,
     Symptom,
-    Diagnosis,
     Organism_Attribute,
     Clinical_Attribute,
     Intellectual_Product,
