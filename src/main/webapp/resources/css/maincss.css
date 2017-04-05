@@ -73,10 +73,19 @@ body {
 
 .publicTopic {
     position: absolute;
-    top: 5%;
+    top: 3%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-shadow:1px 1px 1px rgba(255,255,255,1);font-weight:bold;color:#060DD1;letter-spacing:4pt;word-spacing:7pt;font-size:26px;text-align:center;font-family:palatino linotype, palatino, serif;line-height:1;
+    text-shadow:1px 1px 1px rgba(13,142,255,1);font-weight:bold;color:#FFFDF7;letter-spacing:2pt;word-spacing:5pt;font-size:36px;text-align:center;font-family:palatino linotype, palatino, serif;line-height:1;
+    /*display: inline-block;*/
+}
+
+.publicFooter {
+    position: absolute;
+    top: 93%;
+    left: 1%;
+    /*transform: translate(-50%, -50%);*/
+    text-shadow:1px 1px 1px rgba(13,142,255,1);font-weight:bold;color:#FFFDF7;letter-spacing:2pt;word-spacing:5pt;font-size:16px;text-align:left;font-family:palatino linotype, palatino, serif;line-height:1;
     /*display: inline-block;*/
 }
 

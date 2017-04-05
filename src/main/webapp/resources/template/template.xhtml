@@ -739,11 +739,15 @@
 
                 <h:panelGroup rendered ="#{!sessionController.logged and !sessionController.firstLogin }"  >
                     <ui:insert name="login"   >
-                        
+
                         <div>
                             <p:outputLabel value="National Rheumatology Data Registry" styleClass="publicTopic"  ></p:outputLabel>
                         </div>
-                        
+
+                        <div>
+                            <p:outputLabel value="&copy; Sri Lankan College of Rheumatologists. All rights reserved." styleClass="publicFooter"  ></p:outputLabel>
+                        </div>
+
                         <p:panel header="Please login" id="loginbox" style="text-align: center; " styleClass="nonPrintBlock verticalAndHorizontalCentering">
                             <h:panelGrid columns="2" >
                                 <h:panelGroup >
