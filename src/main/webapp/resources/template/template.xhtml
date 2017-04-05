@@ -32,6 +32,7 @@
 
     <h:body>
         <div id="panelFullSpread" class="fullSpread ui-widget-content " >
+            <p:graphicImage library="image" name="rheumatology01.jpg" width="100%" style="z-index: 900;" rendered="#{!sessionController.logged}" ></p:graphicImage>
             <p:growl id="publicGrowl" autoUpdate="true"   />
             <h:panelGroup >
                 <h:form>
@@ -738,6 +739,11 @@
 
                 <h:panelGroup rendered ="#{!sessionController.logged and !sessionController.firstLogin }"  >
                     <ui:insert name="login"   >
+                        
+                        <div>
+                            <p:outputLabel value="National Rheumatology Data Registry" styleClass="publicTopic"  ></p:outputLabel>
+                        </div>
+                        
                         <p:panel header="Please login" id="loginbox" style="text-align: center; " styleClass="nonPrintBlock verticalAndHorizontalCentering">
                             <h:panelGrid columns="2" >
                                 <h:panelGroup >
