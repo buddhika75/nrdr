@@ -55,6 +55,15 @@
 
                             <p:menubar styleClass="nonPrintBlock bottomBorderOnly ui-widget-header"  >
                                 <p:menuitem  ajax="false"  action="/index" icon="ui-icon-home" styleClass="rightBordrOnly" ></p:menuitem>
+
+                                <p:submenu styleClass="rightBordrOnly" label="EHR"  rendered="#{webUserController.hasPrivilege('Clinical')}">
+                                    <p:menuitem ajax="false" action="/clinical/clinical_patient_for_receptionist" value="Patients"/>
+                                    <p:menuitem ajax="false" action="/clinical/clinical_queue" value="Queue"/>
+                                    <p:menuitem ajax="false" action="/clinical/clinical_reports_index" value="Reports"/>
+                                    <p:menuitem ajax="false" action="/clinical/favourite_index" value="Favourites"/>
+                                    <p:menuitem ajax="false" action="/clinical/clinical_administration" value="Administration"/>
+                                </p:submenu>
+
                                 <p:submenu styleClass="rightBordrOnly" label="OPD" rendered="#{webUserController.hasPrivilege('Opd')}">
                                     <p:menuitem ajax="false" action="/opd_bill"  actionListener="#{billController.prepareNewBill}" value="Bill" rendered="#{webUserController.hasPrivilege('OpdBilling')}" ></p:menuitem>
                                     <p:menuitem ajax="false" action="/opd_pre_bill"  actionListener="#{opdPreBillController.prepareNewBill}" value="Bills For Cashier" rendered="#{webUserController.hasPrivilege('OpdPreBilling')}" ></p:menuitem>
@@ -145,7 +154,7 @@
                                     <p:menuitem ajax="false" action="/lab_administration" value="Administration"  ></p:menuitem>
                                 </p:submenu>
 
-                                <p:submenu styleClass="rightBordrOnly" label="Pharmacy"  rendered="#{webUserController.hasPrivilege('Pharmacy')}">
+                                <p:submenu styleClass="rightBordrOnly" label="Medicines"  rendered="#{webUserController.hasPrivilege('Pharmacy')}">
                                     <p:submenu label="Sale Bills" rendered="#{webUserController.hasPrivilege('PharmacySale')}"> 
                                         <p:menuitem  ajax="false" action="/pharmacy/pharmacy_bill_retail_sale"  
                                                      value="Sale" rendered="#{webUserController.hasPrivilege('PharmacySale')}" actionListener="#{pharmacySaleController.resetAll()}" ></p:menuitem>                                                                               
@@ -585,13 +594,7 @@
                                     <p:menuitem  ajax="false"  action="/hr/hr_reports" value="Reports"  />
                                     <p:menuitem  ajax="false"  action="/hr/hr_admin" value="Administration"  ></p:menuitem>
                                 </p:submenu>
-                                <p:submenu styleClass="rightBordrOnly" label="EHR"  rendered="#{webUserController.hasPrivilege('Clinical')}">
-                                    <p:menuitem ajax="false" action="/clinical/clinical_patient_for_receptionist" value="Patients"/>
-                                    <p:menuitem ajax="false" action="/clinical/clinical_queue" value="Queue"/>
-                                    <p:menuitem ajax="false" action="/clinical/clinical_reports_index" value="Reports"/>
-                                    <p:menuitem ajax="false" action="/clinical/favourite_index" value="Favourites"/>
-                                    <p:menuitem ajax="false" action="/clinical/clinical_administration" value="Administration"/>
-                                </p:submenu>
+
 
                                 <p:submenu styleClass="rightBordrOnly" label="Reports"  rendered="#{webUserController.hasPrivilege('Reports')}">
                                     <p:menuitem  ajax="false"  action="/reportInstitution/report_own" value="Institution Report" rendered="#{webUserController.hasPrivilege('ReportsSearchCashCardOwn')}" ></p:menuitem>                               

@@ -65,11 +65,12 @@ public class VmpController implements Serializable {
 
     public List<Vmp> completeVmp(String query) {
         String sql;
+        System.out.println("query = " + query);
         if (query == null) {
             vmpList = new ArrayList<>();
         } else {
             sql = "select c from Vmp c where c.retired=false and upper(c.name) like '%" + query.toUpperCase() + "%' order by c.name";
-            ////System.out.println(sql);
+            System.out.println(sql);
             vmpList = getFacade().findBySQL(sql);
         }
         return vmpList;

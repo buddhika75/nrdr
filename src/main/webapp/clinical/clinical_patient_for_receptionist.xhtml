@@ -104,7 +104,7 @@
                                 </f:facet>
 
 
-                                <p:tabView  activeIndex="2">
+                                <p:tabView  activeIndex="0">
                                     <p:tab title="Patient Details" >
                                         <h:panelGrid id="patientDetail" columns="2" >
                                             <h:panelGrid columns="2" >
@@ -234,7 +234,7 @@
 
                                         </h:panelGrid>
                                     </p:tab>
-                                    <p:tab title="Disease Details" >
+                                    <p:tab title="Diagnoses" >
                                         <h:panelGroup rendered="#{patientController.current.id ne null }" >
                                             <p:autoComplete id="dx" completeMethod="#{itemController.completeDiagnoses}" var="i"
                                                             value="#{patientItemController.currentItem}"
@@ -257,7 +257,7 @@
                                         </h:panelGroup>
 
                                     </p:tab>
-                                    <p:tab title="Joint Involvement"  >
+                                    <p:tab title="RA"  >
                                         <table >
                                             <tr>
                                                 <td>
@@ -350,7 +350,7 @@
                                                     <div style="width: 100%; height: 100%; " >
                                                         <p:selectBooleanCheckbox style="position: absolute; top: 92.3px; left: 452px; opacity: 0.8; " ></p:selectBooleanCheckbox>
                                                         <p:selectBooleanCheckbox style="position: absolute; top: 92.3px; left: 487px; opacity: 0.8;" ></p:selectBooleanCheckbox>
-                                                        
+
                                                         <p:selectBooleanCheckbox style="position: absolute; top: 133px; left: 480px; opacity: 0.8;" ></p:selectBooleanCheckbox>
                                                         <p:selectBooleanCheckbox style="position: absolute; top: 133px; left: 460px; opacity: 0.8;" ></p:selectBooleanCheckbox>
 
@@ -471,11 +471,71 @@
                                                     MMF
                                                 </th>
                                                 <th>
-                                                    <p:autoComplete size="10" completeMethod="#{ampController.completeAmp}"
-                                                                    var="amp" itemLabel="#{amp.code}" itemValue="#{amp}">
-                                                    </p:autoComplete>
+                                                    <p:inputText style="width: 50px;"></p:inputText>
+                                                </th>
+                                                <th>
+                                                    <p:inputText style="width: 50px;"></p:inputText>
+                                                </th>
+                                                <th>
+                                                    <p:inputText style="width: 50px;"></p:inputText>
+                                                </th>
+                                                <th>
+                                                    <p:inputText style="width: 50px;"></p:inputText>
+                                                </th>
+                                                <th>
+                                                    <p:inputText style="width: 50px;"></p:inputText>
                                                 </th>
                                             </tr>
+
+
+                                            <tr>
+
+                                                <td>
+                                                    Allergy
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td>
+                                                    <p:selectBooleanCheckbox ></p:selectBooleanCheckbox>
+                                                </td>
+                                                <td style="vertical-align: middle; text-align: center;">
+                                                    <p:selectBooleanCheckbox style="padding: 2px; margin: auto;" ></p:selectBooleanCheckbox>
+                                                </td>
+
+
+                                            </tr>
+
                                         </table>
                                     </p:tab>
 

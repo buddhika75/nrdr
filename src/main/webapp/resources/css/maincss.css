@@ -1048,3 +1048,23 @@ table.standardTable td {
 .noBorderGrid1.ui-panelgrid .ui-panelgrid-cell {
     border: none;
 }
+
+.short.ui-autocomplete-panel .ui-autocomplete-table {
+    width: 40px !important;
+}
+
+.short.ui-autocomplete-input.ui-inputfield
+{
+    width : 50px !important;
+
+}
+
+.ui-autocomp .ui-inputfield {
+    clear: left;
+    cursor: text;
+    list-style-type: none;
+    margin: 0;
+    min-height: 1px;
+    overflow: hidden;
+    width: 20px!important;
+}
